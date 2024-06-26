@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
+
 export default function ButtonAppBar() {
   const cssIcon = {mr:2}
     return (
@@ -24,9 +25,10 @@ export default function ButtonAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <Link to='/'>CRUD</Link>
+            <Link  to="/">HOME </Link>
+            
           </Typography>
-          
+        
         </Toolbar>
       </AppBar>
     </Box>

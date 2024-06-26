@@ -35,12 +35,15 @@ export default function Create() {
       name,
       createdAt,
     });
+    
     if (response) {
       console.log(response);
     }
     e.preventDefault();
     console.log(name);
-    console.log("Date" + createdAt);
+    console.log("Date:" + createdAt);
+    
+  
   };
   function getDate() {
     const today = new Date();
