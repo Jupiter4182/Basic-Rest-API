@@ -5,6 +5,7 @@ import User from './Components/User.jsx'
 import {Route,Routes} from 'react-router-dom'
 import Create from './Components/Create.jsx'
 import Edit from './Components/Edit.jsx'
+import Test from './Components/Test.jsx'
 function App() {
 
   return (
