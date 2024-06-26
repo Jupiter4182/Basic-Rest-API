@@ -22,7 +22,8 @@ import { Avatar } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 export default function User() {
 const url ='https://66797cc818a459f6395011d7.mockapi.io/test'
-  async function deleteTodo(id){
+  
+async function deleteTodo(id){
     try {
       const response = await axios.delete(`${url}/${id}`)
       await fetchTodo()
@@ -61,7 +62,7 @@ const url ='https://66797cc818a459f6395011d7.mockapi.io/test'
           <Box display="flex">
             <Box sx={{ flexGrow: 1 }}>
               <Typography variant="h6" gutterBottom component="div">
-                CRUD data Test From RAPIDapi
+                CRUD data Test From MOCKAPI + MUI
               </Typography>
             </Box>
             <Box>
