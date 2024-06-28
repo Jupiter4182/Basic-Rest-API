@@ -20,6 +20,8 @@ import axios from 'axios'
 import Navbar from '../Components/Navbar.jsx'
 import { Avatar } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
+import CircularProgress from '@mui/material/CircularProgress';
+
 export default function User() {
 const url ='https://66797cc818a459f6395011d7.mockapi.io/test'
   
@@ -36,25 +38,31 @@ async function deleteTodo(id){
 
 
   const [todos,setTodos]= useState([])
-
+  const [loading, setLoading] = useState(true);
   
-  const fetchTodo = async()=>{
-    try {
-      const response = await axios.get(`${url}`)
-      
-      setTodos(response.data);
-    }
-    catch(error){
-      console.log('error',error);
-    }
-  }
+  
   useEffect(()=>{
+    const fetchTodo = async()=>{
+      try {
+        setTimeout( async()=>{
+
+          const response = await axios.get(`${url}`)
+          setTodos(response.data);
+          setLoading(false);
+        },1000)
+        }
+      catch(error){
+        console.log('error',error);
+        setLoading(false);
+      }
+    }
     fetchTodo()
   },[])
 
     return (
+
     <React.Fragment>
-    
+   
       <CssBaseline />
       <Navbar/>
       <Container maxWidth="lg" sx={{ p: 2 }}>
@@ -71,7 +79,11 @@ async function deleteTodo(id){
             </Link>
             </Box>
           </Box>
-
+          {loading ? (
+         <Box sx={{ display: 'flex' , alignItems:"center" ,justifyContent:"center" }}>
+         <CircularProgress />
+       </Box>
+      ) : (
           <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
@@ -82,17 +94,18 @@ async function deleteTodo(id){
             <TableCell align="right">Action</TableCell>
           </TableRow>
         </TableHead>
+     
+            {todos.map((row,index) => (
         <TableBody>
-
-          {todos.map((row,index) => (
-            <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+     
+          <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
           
-              <TableCell align="center">
-                <Box display="flex" justifyContent="center">
-                <Avatar alt={row.name} src={row.avatar} />
-                </Box>
-                </TableCell>
-              <TableCell align="right">{row.name}</TableCell>
+        <TableCell align="center">
+        <Box display="flex" justifyContent="center">
+        <Avatar alt={row.name} src={row.avatar} />
+        </Box>
+        </TableCell>
+        <TableCell align="right">{row.name}</TableCell>
                 
               <TableCell align="right">{row.createdAt}</TableCell>
               <TableCell align="right">
@@ -101,14 +114,15 @@ async function deleteTodo(id){
               </Link>
               <Button variant="outlined" startIcon={<DeleteIcon />} onClick={ ()=>{ deleteTodo(row.id)}} >Delete</Button>
               </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
+              </TableRow>
+              </TableBody>
+            ))}
       </Table>
     </TableContainer>
-
+  )}
         </Paper>
       </Container>
     </React.Fragment>
+        
   );
 }
